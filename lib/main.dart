@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:listview/screens/home_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,6 +17,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.deepPurple,
         scaffoldBackgroundColor: Colors.deepPurple.shade50,
       ),
+      home: const HomeScreen(),
     );
   }
 }
