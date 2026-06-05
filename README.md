@@ -54,25 +54,8 @@ On application startup:
 
 ---
 
-## UI Enhancements
 
-### ✨ Empty State UI
 
-Displays an icon and message when no tasks are available.
-
-### ✨ Pull-to-Refresh
-
-Implemented using `RefreshIndicator`.
-
-### ✨ Delete Confirmation
-
-Shows an `AlertDialog` asking:
-
-> Are you sure you want to delete this task?
-
-### ✨ Undo Delete
-
-Displays a `SnackBar` after deletion with an Undo action.
 
 ---
 
