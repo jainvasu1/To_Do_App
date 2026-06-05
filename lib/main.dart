@@ -49,7 +49,6 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  // Function to delete a task
   deleteItem(index) {
     setState(() {
       todoList.removeAt(index);
@@ -143,7 +142,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: SizedBox(
                       height: 60,
                       child: TextFormField(
-                        // Input field controller
                         controller: _controller,
                         decoration: InputDecoration(
                           focusedBorder: OutlineInputBorder(
@@ -171,9 +169,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ? updateListItem(_controller.text, updateIndex)
                           : addList(_controller.text); // Add new task
                     },
-                    child: Icon(
-                      updateIndex != -1 ? Icons.edit : Icons.add,
-                    ), // Icon changes based on action
+                    child: Icon(updateIndex != -1 ? Icons.edit : Icons.add),
                   ),
                 ],
               ),
