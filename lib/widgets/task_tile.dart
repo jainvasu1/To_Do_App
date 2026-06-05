@@ -5,18 +5,20 @@ class TaskTile extends StatelessWidget {
   final Task task;
   final VoidCallback onDelete;
   final VoidCallback onToggle;
+  final VoidCallback? onEdit;
 
   const TaskTile({
     super.key,
     required this.task,
     required this.onDelete,
     required this.onToggle,
+    this.onEdit,
   });
 
   @override
   Widget build(BuildContext context) {
     return Dismissible(
-      key: Key(task.title),
+      key: UniqueKey(),
 
       background: Container(
         color: Colors.red,
@@ -28,9 +30,12 @@ class TaskTile extends StatelessWidget {
       onDismissed: (direction) {
         onDelete();
 
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(const SnackBar(content: Text("Task deleted")));
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: const Text("Task deleted"),
+            action: SnackBarAction(label: "UNDO", onPressed: () {}),
+          ),
+        );
       },
 
       child: Card(
@@ -54,30 +59,40 @@ class TaskTile extends StatelessWidget {
             activeColor: Colors.deepPurple,
           ),
 
-          trailing: IconButton(
-            icon: const Icon(Icons.delete, color: Colors.red),
-            onPressed: () {
-              showDialog(
-                context: context,
-                builder: (_) => AlertDialog(
-                  title: const Text("Delete Task"),
-                  content: const Text("Are you sure?"),
-                  actions: [
-                    TextButton(
-                      onPressed: () => Navigator.pop(context),
-                      child: const Text("No"),
+          trailing: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              IconButton(
+                icon: const Icon(Icons.edit, color: Colors.deepPurple),
+                onPressed: onEdit,
+              ),
+
+              IconButton(
+                icon: const Icon(Icons.delete, color: Colors.red),
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (_) => AlertDialog(
+                      title: const Text("Delete Task"),
+                      content: const Text("Are you sure?"),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.pop(context),
+                          child: const Text("No"),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            onDelete();
+                            Navigator.pop(context);
+                          },
+                          child: const Text("Yes"),
+                        ),
+                      ],
                     ),
-                    TextButton(
-                      onPressed: () {
-                        onDelete();
-                        Navigator.pop(context);
-                      },
-                      child: const Text("Yes"),
-                    ),
-                  ],
-                ),
-              );
-            },
+                  );
+                },
+              ),
+            ],
           ),
         ),
       ),

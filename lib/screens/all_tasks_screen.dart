@@ -7,19 +7,20 @@ class AllTasksScreen extends StatelessWidget {
   final List<Task> tasks;
   final Function(int) onDelete;
   final Function(int) onToggle;
+  final Function(int) onEdit;
 
   const AllTasksScreen({
     super.key,
     required this.tasks,
     required this.onDelete,
     required this.onToggle,
+    required this.onEdit,
   });
 
   @override
   Widget build(BuildContext context) {
-    //
     if (tasks.isEmpty) {
-      return const EmptyState(message: "No tasks yet");
+      return const EmptyState(message: "No tasks yet ");
     }
 
     return RefreshIndicator(
@@ -34,6 +35,7 @@ class AllTasksScreen extends StatelessWidget {
             task: tasks[index],
             onDelete: () => onDelete(index),
             onToggle: () => onToggle(index),
+            onEdit: () => onEdit(index),
           );
         },
       ),
